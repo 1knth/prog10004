@@ -42,8 +42,12 @@ def get_customer_info(customer) -> Customer:
     phone_number = phone_number[:3] + "-" + phone_number[3:6] + "-" + phone_number[6:]
 
     while True:
+        postal_code = input("Enter your postal code: ")
+        postal_code = postal_code.upper().strip().replace(" ", "").replace("-","")
+
         if len(postal_code) != 6:
-            postal_code = input("Enter your postal code: ")
+            print("only 6 characters allowed")
+            continue
 
         # hard rules
         if (
@@ -55,7 +59,6 @@ def get_customer_info(customer) -> Customer:
             postal_code[5].isdigit() 
         ):
             break
-    postal_code = postal_code.upper().strip().replace(" ", "").replace("-","")
     postal_code = postal_code[:3] + " " + postal_code[3:]
 
     customer.name = name
