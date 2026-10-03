@@ -41,7 +41,6 @@ def get_customer_info(customer) -> Customer:
 
     phone_number = phone_number[:3] + "-" + phone_number[3:6] + "-" + phone_number[6:]
 
-    # while length of postal_code (with no leading spaces or spaces in between chars) does not equal to 6 
     while True:
         if len(postal_code) != 6:
             postal_code = input("Enter your postal code: ")
