@@ -28,9 +28,6 @@ def get_customer_info(customer) -> Customer:
     phone_number = ""
     postal_code = ""
 
-    print("Hello, welcome to Terminal Convenience!")
-    print("Please tell us your name, phone number, and postal code")
-
     name = input("Enter your name: ")
     names = name.split()
     name = ""
@@ -106,13 +103,23 @@ def draw_border(symbol):
 # How: Performs operations on the Customer's cart and returns it in a new PaymentSummary() object
 def payment_summary(cart,discount) -> PaymentSummary:
     hst = 0.13
+    subtotal_1 = 0
+    subtotal_2 = 0
+    payment_hst = 0
+    total = 0
+
     payment = PaymentSummary()
 
     for item in cart:
-        payment.subtotal_1 += item["total"]
-    payment.hst = payment.subtotal_1 * hst
-    payment.subtotal_2 = payment.subtotal_1 + payment.hst
-    payment.total = payment.subtotal_2 - payment.subtotal_2 * discount * 0.01
+        subtotal_1 += item["total"]
+    payment_hst = subtotal_1 * hst
+    subtotal_2 = subtotal_1 + payment_hst
+    total = subtotal_2 - subtotal_2 * discount * 0.01
+
+    payment.subtotal_1 = subtotal_1
+    payment.subtotal_2 = subtotal_2
+    payment.hst = payment_hst
+    payment.total = total
     
     return payment 
 
@@ -168,9 +175,12 @@ def main():
     }
 
     customer = Customer()
+
+    # input
+    print("Hello, welcome to Terminal Convenience!")
+    print("Please tell us your name, phone number, and postal code")
     customer = get_customer_info(customer)
     
-    # input
     order(customer, products)
     discount = int(input("Enter your discount (0-100%): ")) # assume perfect input
     
